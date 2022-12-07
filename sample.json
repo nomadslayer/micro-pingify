@@ -1,0 +1,48 @@
+# Pingify configuration version:
+version: 1
+
+# Timeout (in ms):
+# A service will be considered as down if this timeout is reached. 0 = no timeout.
+timeout: 15000
+
+services:
+  - name: Resume
+    type: html
+    uri: https://myinteractiveresume.herokuapp.com/myresume.html
+    expectations:
+      - selector: h1
+        method: text
+        value: "Example Domain"
+
+  - name: QRNow.org
+    type: html
+    uri: https://myinteractiveresume.herokuapp.com/myresume.html
+    expectations:
+      - selector: h1
+        method: text
+        value: "Example Domain"
+
+  - name: API Example
+    type: json
+    uri: https://jsonplaceholder.typicode.com/posts
+    expectations:
+      - selector: userId
+        method: type
+        value: "Number"
+      - selector: title
+        method: value
+        value: "sunt aut facere repellat provident occaecati excepturi optio reprehenderit"
+
+webhooks:
+  - url: https://example.com
+    method: GET
+
+  - url: https://example.com
+    method: POST
+    headers:
+      Authorization: Bearer A_TOKEN
+      Content-Type: application/json
+    body:
+      whatever:
+        - data: structure
+          you: need

@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>{{ $imports.meta.title }}</title>
+
+    {{ if metas }}
+      {{ each metas }}
+        <meta name="{{ $value.name }}" content="{{ $value.value }}">
+      {{ /each }}
+    {{ /if }}
+
+    <link href="/css/vendors/bootswatch-4.4.1.pulse.min.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
+
+    {{ block 'styles' }}{{ /block }}
+  </head>
+  <body class="d-flex flex-column">
+    <nav class="navbar fixed-top navbar-dark bg-dark shadow-sm">
+      <div class="container d-flex justify-content-between">
+        <a href="/" class="navbar-brand d-flex align-items-center">
+          <span class="header-brand">{{ $imports.meta.title }}</span>
+        </a>
+        <div class="navbar-nav">
+          <a class="nav-item nav-link" href="/admin">Administration</a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="d-flex flex-grow-1">
+      <div class="container d-flex flex-grow-1 flex-column bg-light py-4">
+        {{ block 'content' }}{{ /block }}
+      </div>
+    </main>
+
+    <footer class="fixed-bottom bg-dark">
+      <div class="container pb-2 pt-2 text-right text-muted">
+        Freely powered by
+        <a href="https://github.com/nomadslayer/micro-pingify" target="_blank">Pingify</a>.
+      </div>
+    </footer>
+
+    <script defer src="/js/vendors/axios-0.19.1.min.js"></script>
+    {{ block 'scripts' }}{{ /block }}
+  </body>
+</html>

@@ -1,0 +1,75 @@
+{{ extend '../layout.art' }}
+
+{{ block 'styles' }}
+  <link href="/css/vendors/codemirror-5.51.0.min.css" rel="stylesheet">
+  <link href="/css/vendors/codemirror-5.51.0.theme.ayu.min.css" rel="stylesheet">
+  <link href="/css/admin.css" rel="stylesheet">
+{{ /block }}
+
+{{ block 'content' }}
+  {{ if configuration }}
+    {{ if isAdmin }}
+      <div class="js-configuration">
+        <h2 class="d-flex justify-content-between align-items-end">
+          Configuration
+          <button
+            class="js-configuration-saveButton btn btn-danger btn-sm"
+            title="Update the configuration"
+            type="button"
+          >
+            UPDATE
+          </button>
+        </h2>
+        <div class="js-configuration-error alert alert-danger d-none" role="alert">
+          <h4 class="alert-heading">Your configuration is invalid!</h4>
+          <p>Please fix these errors:</p>
+          <ul class="js-configuration-errorList"></ul>
+        </div>
+        <textarea class="js-configuration-editor" readonly>{{ configuration.source }}</textarea>
+      </div>
+
+      <h2 class="d-flex justify-content-between align-items-end">
+        Maintenance
+        <small class="subtitle-small text-monospace text-muted">
+          Storage Size: {{ checkpointsSize }}
+        </small>
+      </h2>
+      <table class="js-maintenance table table-borderless table-striped">
+        <tbody class="js-maintenance-body">
+          <tr>
+            <td>Loading…</th>
+          </tr>
+        </tbody>
+      </table>
+    {{ else }}
+      <h2>Authentication</h2>
+      <form class="js-form mt-2">
+        <div class="form-group">
+          <label>Username</label>
+          <input class="form-control" type="text">
+          <div class="invalid-feedback"></div>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input class="form-control" type="password">
+          <div class="invalid-feedback"></div>
+        </div>
+        <button type="submit" class="btn btn-primary">Log In</button>
+      </form>
+    {{ /if }}
+  {{ else }}
+    <div class="flex-grow-1 d-flex flex-column justify-content-center align-items-center">
+      <div class="spinner bg-primary"></div>
+      <div class="mt-4 text-muted">Initializing database…</div>
+    </div>
+  {{ /if }}
+{{ /block }}
+
+{{ block 'scripts' }}
+  <script defer src="/js/vendors/codemirror-5.51.0.min.js"></script>
+  <script defer src="/js/vendors/codemirror-5.51.0.keymap.sublime.min.js"></script>
+  <script defer src="/js/vendors/codemirror-5.51.0.lint.min.js"></script>
+  <script defer src="/js/vendors/codemirror-5.51.0.lint.yaml.min.js"></script>
+  <script defer src="/js/vendors/codemirror-5.51.0.mode.yaml.min.js"></script>
+  <script defer src="/js/admin.js" type="module"></script>
+{{ /block }}

@@ -1,0 +1,23 @@
+# Pingify configuration version:
+version: 1
+
+# Timeout (in ms):
+# A service will be considered as down if this timeout is reached. 0 = no timeout.
+timeout: 180000
+
+services:
+  - name: Message Blaster
+    type: html
+    uri: https://messageblaster.squidlabs.io/
+    expectations:
+      - selector: h1
+        method: text
+        value: "Squid Message Blaster"
+
+  - name: Squid Labs API
+    type: html
+    uri: https://squid-license-api.squidlabs.io/swagger/index.html
+    expectations:
+      - selector: head > title
+        method: text
+        value: "SquidLab License API"
